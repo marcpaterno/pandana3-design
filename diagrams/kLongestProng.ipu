@@ -1,0 +1,12 @@
+object "kLongestProng : GroupedVar" as kLongestProng {
+  grouping = "run/subrun/cycle/event/slice"
+  summarize = np.max
+}
+
+object "prongLength : SimpleVar" as prongLength {
+  table: "rec.vtx.elastic.fuzzyk.png"
+  columns: ["len"]
+}
+
+kLongestProng *-- prongLength
+

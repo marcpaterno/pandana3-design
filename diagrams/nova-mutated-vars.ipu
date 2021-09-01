@@ -1,0 +1,12 @@
+!include nova-transform.ipu
+
+object "showerYs : SimpleVar" as showerYs {
+  table = "rec.vtx.elastic.fuzzyk.png.shwlid"
+  columns = ["start.y", "stop.y"]
+}
+
+object "maxShowerY : MutatedVar" as maxShowerY {
+}
+
+maxShowerY *-- showerYs : orig
+maxShowerY *-- pmax : transform

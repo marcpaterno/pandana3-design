@@ -1,0 +1,28 @@
+digraph {
+        C_c [label="C_c"]
+        C_a [label="C_a"]
+        C_b [label="C_b"]
+        //F_1 [label="F_1"]
+        //F_2 [label="F_2"]
+        and_1 [label="AND_1"]
+        //and_2 [label="AND_2"]
+        //or_1 [label="OR_1"]
+        DB_1 [label="DB_1"]
+        //V_1 [label="V_1"]
+        //V_2 [label="V_2"]
+        app1 [label="mapC_1[OR_1,AND_2]"]
+        app2 [label="mapF_1[F_1,F_2]"]
+        app3 [label="mapV_1[V_1,V_2]"]
+        C_a -> and_1
+        C_b -> and_1
+        //and_1 -> or_1
+        //and_1 -> and_2
+        //C_c -> or_1
+        //C_c -> and_2
+        //or_1 -> F_1
+        and_1 -> app1
+        C_c -> app1
+        DB_1 -> app2
+        app1 -> app2
+        app2 -> app3
+}

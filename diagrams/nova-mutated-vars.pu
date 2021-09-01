@@ -1,0 +1,6 @@
+@startuml
+skinparam dpi 300
+
+!include nova-mutated-vars.ipu
+
+@enduml

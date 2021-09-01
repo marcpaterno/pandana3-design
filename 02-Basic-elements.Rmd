@@ -1,0 +1,40 @@
+# Basic elements
+
+In PandAna, the basic calculational elements are `Cuts` and `Vars`.
+A `Var` represents *data*; a `Cut` represents selections done on the data.
+
+## `Vars`
+
+The central feature of an "analysis", as we represent it, is the *evaluation* of one or more `Vars`.
+A `Var` represents data that are either read directly from an input file or calculated by the analysis program, typically from other data read from the input file.
+From these `Vars` we can make histograms, scatterplots, statistical summaries, *etc*.
+A `Var` evaluates to a *table*, in our implementation a `pandas.DataFrame` (henceforth, just `DataFrame`).
+The evaluation of a `Var` requires the specification of a file to be used as the source of data for that `Var`.
+
+We have identified several types of `Vars`.
+
+#. `SimpleVar`: A `SimpleVar` is responsible only for reading data from a file.
+It performs no operations on those data.
+#. `MutatedVar`: A `MutatedVar` is based upon some other `Var`, and also contains a function that transforms the `DataFrame` to which that `Var` evaluate in order to yield the value of the `MutatedVar`.
+#. `GroupedVar`:
+
+
+### `FilteredVar`
+
+### `ArithmeticVar`
+    
+## `Cuts`
+
+A `Cut`:
+
+  * *evaluates* to an array of booleans (either an `np.ndarray` or a `DataFrame` with one boolean column).
+  * gets *applied* to `Vars` to select the rows that "pass the cut".
+  * We have identified only a few types of `Cuts`.
+  
+## Filtering
+
+## Indexing
+
+## Grouping
+
+## Other things that are interesting

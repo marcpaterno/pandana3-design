@@ -1,0 +1,26 @@
+@startuml
+skinparam dpi 300
+skinparam linetype ortho
+
+interface Var {
+ +DataFrame eval(File)
+ +[str] get_datasets_read()
+ +[str] get_tables_read()
+ +[str] get_result_columns()
+ +Grouping get_grouping(File)
+ +Index get_index()
+}
+
+Var <|-- ArithmeticVar
+
+
+ArithmeticVar *-- Var : x
+ArithmeticVar *-- Var : y
+
+ArithmeticVar <|-- ProductVar
+ArithmeticVar <|-- QuotientVar
+ArithmeticVar <|-- SumVar
+ArithmeticVar <|-- DifferenceVar
+
+
+@enduml

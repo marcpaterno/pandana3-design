@@ -1,0 +1,24 @@
+@startuml
+skinparam dpi 300
+
+object "kNHit : SimpleVar" as kNHit {
+  table = "rec.slc"
+  columns = ["nhit"]
+}
+
+object "kDetID : SimpleVar" as kDetID {
+  table = "rec.hdr"
+  columns = ["det"]
+}
+
+object "kCVNids : SimpleVar" as kCVNids {
+  table = "rec.se.cvn2017"
+  columns = [ "nueid", "numuid", "ncid" ]
+}
+note right
+  This is modified from what is
+  in the NOvA code, which has
+  three separate Vars
+end note
+
+@enduml

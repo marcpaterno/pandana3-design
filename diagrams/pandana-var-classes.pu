@@ -1,0 +1,52 @@
+@startuml
+skinparam dpi 300
+skinparam Linetype ortho
+
+interface Var {
+ +DataFrame eval(File)
+ +[str] get_datasets_read()
+ +[str] get_tables_read()
+ +[str] get_result_columns()
+ +Grouping get_grouping()
+ +Index get_index()
+}
+
+class SimpleVar {
+  table: str
+  datasets: [str]
+  
+  +Grouping get_grouping()
+}
+note left of SimpleVar::get_grouping
+  returns a Grouping with
+  is_fundamental = True
+end note
+
+Var <|-- ArithmeticVar
+Var <|-- FilteredVar
+Var <|-- GroupedVar
+Var <|-- MutatedVar
+Var <|-l- SimpleVar 
+Var <|-- SlicedVar
+
+class Index {
+  is_trivial: bool
+}
+
+Index <|-- SimpleIndex
+Index <|-- MultiIndex
+
+GroupedVar *-- Var : base
+GroupedVar *-- AggregationFunction : summarize
+GroupedVar *-- Grouping
+
+FilteredVar *-- Var : base
+
+class File
+class DataFrame
+class Grouping {
+  columns: [str]
+  is_fundamental: bool
+} 
+
+@enduml

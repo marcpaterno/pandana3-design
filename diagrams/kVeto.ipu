@@ -1,0 +1,11 @@
+object "keeper : SimpleVar" as keeper {
+  table = "rec.sel.veto"
+  columns = ["keep"]
+}
+
+object "equalsOne : UnaryPredicate" as equalsOne {
+}
+object "kVeto : SimpleCut" as kVeto {
+}
+kVeto *-- keeper
+kVeto *-- equalsOne

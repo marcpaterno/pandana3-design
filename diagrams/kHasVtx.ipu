@@ -1,0 +1,11 @@
+object "nElastic : SimpleVar" as nElastic {
+  table = "rec.vtx"
+  columns = ["nelastic"]
+}
+
+object "moreThanZero : UnaryPredicate" as moreThanZero {
+}
+object "kHasVtx : SimpleCut" as kHasVtx {
+}
+kHasVtx *-- nElastic
+kHasVtx *-- moreThanZero

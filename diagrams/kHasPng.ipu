@@ -1,0 +1,10 @@
+object "nProngs : SimpleVar" as nProngs {
+  table = "rec.vtx.elastic.fuzzyk"
+  columns = ["npng"]
+}
+object "kHasPng : SimpleCut" as kHasPng {
+}
+object "moreThanZero : UnaryPredicate" as moreThanZero2 {
+}
+kHasPng *-- nProngs
+kHasPng *-- moreThanZero2

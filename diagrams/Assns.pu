@@ -1,0 +1,77 @@
+@startuml
+class "Assns<A, B, void>" as AssnsABv <<P, orchid>>
+class Assns<A, B, D> <<P, orchid>>
+class "A Collection" as collA <<P, orchid>>
+collA *-- "0 .. *" A
+class "B Collection" as collB <<P, orchid>>
+collB *-- "0 .. *" B
+class "std::vector<>" as vectorData
+class "std::vector<D>" as vectorData
+vectorData *-- "0 .. *" D
+Assns *-- vectorData
+
+class Ptr<T> {
+-std::size_t key_
+}
+
+Ptr *-- RefCore : core_
+
+class "Ptr<A>" as PtrA
+class "Ptr<B>" as PtrB
+
+class "std::pair<Ptr<A>, Ptr<B>>" as ptrPair
+
+AssnsABv *.. "0 .. *" ptrPair : ptrs (transient)
+
+ptrPair *-- PtrA : first
+ptrPair *-- PtrB : second
+
+ProductID *-- ProcessIndex : processIndex_
+ProductID *-- ProductIndex : productIndex_
+
+class ProcessIndex <<T, lightgrey, unsigned short int>>
+class ProductIndex <<T, lightgrey, unsigned short int>>
+
+RefCore *-- ProductID : id_
+note right on link
+  Identifier for collection
+end note
+class "std::vector<std::pair<RefCore, size_t>>" as ptr_data_t
+class "std::pair<RefCore, size_t>" as ptr {
++size_t second
+}
+class RefCore {
+-RefCoreTransients transients
+}
+
+class RefCoreTransients {
+-void const * itemPtr_
+-EDProductGetter const * prodGetter_
+}
+
+RefCore +-- RefCoreTransients
+note right on link
+  Transient information pointing
+  into a collection
+end note
+ptr *-- RefCore : first
+ptr_data_t *-- "0 .. *" ptr
+
+AssnsABv *-- ptr_data_t : ptr_data_1_ (mutable)
+AssnsABv *-- ptr_data_t : ptr_data_2_ (mutable)
+
+Assns --|> AssnsABv : private
+
+PtrA .. collA
+PtrB .. collB
+
+class "unsigned long" as ulong
+
+class PtrVectorBase
+PtrVectorBase *-- RefCore : core_
+PtrVectorBase *-- "0 .. *" ulong : indicies_
+
+class PtrVector<A> <<P, orchid>>
+PtrVector --|> PtrVectorBase
+PtrVector *-- "0 .. *" Ptr : ptrs_ (transient)
+@enduml

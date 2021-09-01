@@ -1,0 +1,15 @@
+@startuml
+skinparam dpi 300
+
+!include nova-mutated-vars.ipu
+!include kLongestProng.ipu
+
+object "kMaxY : GroupedVar" as kMaxY {
+  combine = pd.DataFrame.max
+  grouping = "run/subrun/cycle/event/slice"
+  summarize = np.max
+}
+
+kMaxY *-- maxShowerY
+
+@enduml

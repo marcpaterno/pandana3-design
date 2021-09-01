@@ -1,0 +1,66 @@
+@startuml
+
+class Track {
+  #fPId : int
+  #fChi2 : float
+  #fNdof : int
+  #fID : int 
+  #fdQdx : vector<vector<double>> 
+}
+
+Track *-- TrackTrajectory : fTraj
+Track *-- SMatrixSym55 : fCovVertex
+Track *-- SMatrixSym55 : fCovEnd
+
+class TrackTrajectory { 
+
+}
+
+TrackTrajectory *-- Trajectory : <<private inheritance>> 
+TrackTrajectory *-- "*" TrajectoryPointFlags : fFlags 
+
+class Trajectory {
+  -fHasMomentum : bool
+}
+
+Trajectory *-- "*" PositionVector3D : fPositions 
+Trajectory *-- "*" DisplacementVector3D : fMomenta
+
+class PositionVector3D {
+  -fX : double
+  -fY : double
+  -fZ : double
+}
+
+class DisplacementVector3D {
+  -fX : double
+  -fY : double
+  -fZ : double
+}
+class TrajectoryPointFlags {
+  -fFromHit : unsigned int
+}
+
+TrajectoryPointFlags *-- FlagSet32 : fFlags
+
+class FlagSet32 {
+}
+
+BitMaskUnsignedInt <|-- FlagSet32
+
+class BitMaskUnsignedInt {
+}
+
+BitMaskUnsignedInt *-- Bits_tUnsignedInt : values
+BitMaskUnsignedInt *-- Bits_tUnsignedInt : presence
+
+class Bits_tUnsignedInt {
+  +data : unsigned int
+}
+
+class SMatrixSym55 {
+  -data : double[15]
+}
+
+@enduml
+

@@ -1,0 +1,26 @@
+--- 
+title: "PandAna 3 Design"
+author: "Marc Paterno"
+date: "`r Sys.Date()`"
+output: pdf_document
+documentclass: book
+bibliography: book.bib
+biblio-style: apalike
+link-citations: yes
+github-repo: marcpaterno/pandana-design
+url: http\://seankross.com/bookdown-start/
+description: The design of PandAna 3.
+site: bookdown::bookdown_site
+---
+
+# Preface {-}
+
+This design document is current a work in progress.
+The design of PandAna 3 is not yet complete;
+in fact, it is far from complete.
+It will be continually updated as our understanding of what is needed by the
+experimenters is needed.
+
+This work is being done as part of the
+[SciDAC](https://www.scidac.gov/partnerships/high-energy-physics.html) project 
+[HEP analytics on HPC](https://computing.fnal.gov/hep-on-hpc).

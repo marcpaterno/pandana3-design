@@ -1,0 +1,4 @@
+object "pmax : Transform" as pmax {
+ apply(Var v) : Var
+}
+

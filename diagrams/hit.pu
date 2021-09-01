@@ -1,0 +1,62 @@
+@startuml
+class Hit {
+  -fChannel : uint32_t
+  -fStartTick : int
+  -fEndTick : int
+  -fPeakTime : float
+  -fSigmaPeakTime : float
+  -fRMS : float
+  -fPeakAmplitude : float
+  -fSigmaPeakAmplitude : float
+  -fSummedADC : float
+  -fIntegral : float
+  -fSigmaIntegral : float
+  -fMultiplicity : short
+  -fLocalIndex : short
+  -fGoodnessOfFit : float
+  -fNDF : int
+}
+
+Hit *-- View_t : fView
+Hit *-- SigType_t : fSignalType
+Hit *-- WireID : fWireID
+
+enum View_t {
+    kU
+    kV
+    kW
+    kZ=kW
+    kY
+    kX
+    k3D
+    kUnknown  
+}
+
+enum SigType_t {
+  kInduction
+  kCollection
+  kMysteryType
+}
+
+class WireID {
+  +Wire : unsigned int 
+}
+
+class CryostatID {
+  +isValid : bool
+  +Cryostat : unsigned int
+}
+
+class TPCID {
+  +TPC : unsigned int
+}
+
+class PlaneID {
+  +Plane : unsigned int
+}
+
+PlaneID <|-- WireID 
+TPCID <|-- PlaneID
+CryostatID <|-- TPCID
+
+@enduml

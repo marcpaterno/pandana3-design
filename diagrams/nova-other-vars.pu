@@ -1,0 +1,113 @@
+@startuml
+skinparam dpi 300
+
+!include kLongestProng.ipu
+
+object "kEMEnergy : ProductVar" as kEMEnergy {
+}
+
+object "calE : SimpleVar" as calE {
+  table = "rec.vtx.elastic.fuzzyk.png.shwlid"
+  columns = ["calE"]
+}
+
+object "prim_png_calE : GroupedVar" as prim_png_calE {
+  grouping: ["run", "subrun", "cycle", "event", "slice"]
+  summarize: DataFrame.first
+}
+object "em_like : SimpleCut" as em_like {
+}
+
+object "geHalf : UnaryPredicate" as geHalf {
+  function: x >= 0.5
+}
+
+object "cvn_em_calE_emish : FilteredVar" as cvn_em_calE_emish {
+}
+
+object "cvn_em_calE :  GroupedVar" as cvn_em_calE {
+  grouping = [ "run", "subrun", "cycle", "event", "slice" ]
+  summarize = np.sum
+}
+
+object "emids : SimpleVar" as emids {
+  table: ["rec.vtx.elastic.fuzzyk.png.cvnpart"]
+  columns: ["photonid", "pizeroid", "electronid"]
+}
+
+object "cvn_em_pid : MutatedVar" as cvn_em_pid {
+}
+
+object "sum : Transform" as sum {
+ function: DataFrame.sum(axis=1)
+}
+
+object "ge500 : UnaryPredicate" as ge500 {
+  function: x >= 500
+}
+
+object "equalsZero : UnaryPredicate" as equalsZero {
+  function: x == 0
+}
+
+object "isLongProng : SimpleCut" as isLongProng {
+}
+
+object "hasZeroEnergy : SimpleCut" as hasZeroEnergy {
+}
+
+object "kNueCalibrationCorr : MutatedVar" as kNueCalibrationCorr {
+}
+
+object "C : SlicedVar" as C {
+}
+
+object "longProngOrZeroEnergy : OrCut" as longProngOrZeroEnergy 
+
+object "x : SimpleVar" as x {
+  table: ["rec.hdr"]
+  columns: [ "det", "ismc", "run"]
+}
+
+object "y : Transform" as y {
+  function: kNueCalibrationCorr
+}
+note bottom
+We have to determine what
+kinds of functions (signatures)
+are needed, and how to 
+support them.
+end note
+
+longProngOrZeroEnergy *-- isLongProng
+longProngOrZeroEnergy *-- hasZeroEnergy
+
+C *-- prim_png_calE : passingVals
+C *-- cvn_em_calE :   failingVals
+C *-- longProngOrZeroEnergy : test
+
+prim_png_calE *-- calE
+
+em_like *-- cvn_em_pid
+em_like *-- geHalf
+
+cvn_em_calE_emish *-- calE : orig
+cvn_em_calE_emish *-- em_like : filter
+
+cvn_em_calE *-- cvn_em_calE_emish
+
+cvn_em_pid *-- emids : orig
+cvn_em_pid *-- sum : transform
+
+isLongProng *-- kLongestProng
+isLongProng *-- ge500
+
+hasZeroEnergy *-- equalsZero
+hasZeroEnergy *-- cvn_em_calE
+
+kEMEnergy *-l- C
+kEMEnergy *-- kNueCalibrationCorr
+
+kNueCalibrationCorr *-- x : orig
+kNueCalibrationCorr *-r- y : transform
+@enduml

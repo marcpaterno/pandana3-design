@@ -1,0 +1,7 @@
+@startuml
+skinparam dpi 300
+
+!include kHasVtx.ipu
+!include kVeto.ipu
+
+@enduml

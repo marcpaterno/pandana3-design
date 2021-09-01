@@ -1,0 +1,45 @@
+digraph {
+  
+  kEMEnergy -> C
+  kEMEnergy [style=filled, fillcolor=aquamarine]
+  kEMEnergy -> kNueCalibrationCorr
+  kNueCalibrationCorr -> x
+  kNueCalibrationCorr [style=filled, fillcolor=yellow, label="kNueCalibrationCorr >> y"]
+  x [style=filled, fillcolor=green]
+
+  C -> longProngOrZeroEnergy
+  C -> prim_png_calE
+  C -> cvn_em_calE
+  C [style=filled, fillcolor=cornflowerblue]
+  
+  longProngOrZeroEnergy -> hasZeroEnergy
+  longProngOrZeroEnergy [shape=box, style=filled, fillcolor=mistyrose]
+  longProngOrZeroEnergy -> isLongProng
+  isLongProng -> kLongestProng
+  isLongProng [shape=box, label="isLongProng >> ge500"]
+  kLongestProng -> prongLength
+  kLongestProng [style=filled, fillcolor=cyan]
+  prongLength [style=filled, fillcolor=green]
+  hasZeroEnergy -> cvn_em_calE
+  hasZeroEnergy [shape=box, label="hasZeroEnergy >> equalsZero"]
+  
+  
+  prim_png_calE -> calE
+  prim_png_calE [style=filled, fillcolor=cyan]
+  
+  cvn_em_calE -> cvn_em_calE_emish
+  cvn_em_calE [style=filled, fillcolor=cyan]
+  cvn_em_calE_emish -> calE
+  cvn_em_calE_emish [style=filled, fillcolor=greenyellow]
+  calE [style=filled, fillcolor=green]
+  cvn_em_calE_emish -> em_like
+  em_like -> cvn_em_pid
+  em_like [shape=box, label="em_like >> geHalf"]
+  cvn_em_pid [style=filled, fillcolor=yellow, label="cvn_em_pid >> sum"]
+  cvn_em_pid -> emids
+  emids [style=filled, fillcolor=green]
+  
+  {rank = same; calE; emids; prongLength; x}
+  {rank = same; prim_png_calE, cvn_em_pid, kLongestProng; kNueCalibrationCorr}
+  {rank = same; em_like; isLongProng}
+}

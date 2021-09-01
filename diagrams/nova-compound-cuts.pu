@@ -1,0 +1,30 @@
+@startuml
+skinparam dpi 300
+skinparam linetype ortho
+
+!include kHasVtx.ipu
+!include kHasPng.ipu
+
+object "notManyHits : SimpleCut" as notManyHits {
+}
+object "kHitsPerPlane : SimpleVar" as kHitsPerPlane {
+  table: "rec.sel.nuecosrej"
+  columns: ["hitsperplane"]
+}
+object "fewerThanEight : UnaryPredicate" as fewerThanEight {
+}
+notManyHits *-l- kHitsPerPlane
+notManyHits *-- fewerThanEight
+
+object "kNueDQ : AndCut" as kNueDQ {
+}
+
+object "hasPngAndVtx : AndCut" as hasPngAndVtx {
+}
+hasPngAndVtx *-r- kHasPng
+hasPngAndVtx *-- kHasVtx
+
+kNueDQ *-- notManyHits
+kNueDQ *-- hasPngAndVtx
+
+@enduml
