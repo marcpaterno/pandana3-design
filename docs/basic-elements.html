@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Basic elements | PandAna 3 Design</title>
+  <meta name="description" content="The design of PandAna 3." />
+  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Basic elements | PandAna 3 Design" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://seankross.com/bookdown-start/" />
+  
+  <meta property="og:description" content="The design of PandAna 3." />
+  <meta name="github-repo" content="marcpaterno/pandana-design" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Basic elements | PandAna 3 Design" />
+  
+  <meta name="twitter:description" content="The design of PandAna 3." />
+  
+
+<meta name="author" content="Marc Paterno" />
+
+
+<meta name="date" content="2021-09-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="what-pandana-is-for-and-why-we-are-designing-pandana-3.html"/>
+
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">PandAna 3 Design</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="what-pandana-is-for-and-why-we-are-designing-pandana-3.html"><a href="what-pandana-is-for-and-why-we-are-designing-pandana-3.html"><i class="fa fa-check"></i><b>1</b> What PandAna is for, and why we are designing PandAna 3</a></li>
+<li class="chapter" data-level="2" data-path="basic-elements.html"><a href="basic-elements.html"><i class="fa fa-check"></i><b>2</b> Basic elements</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="basic-elements.html"><a href="basic-elements.html#vars"><i class="fa fa-check"></i><b>2.1</b> <code>Vars</code></a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="basic-elements.html"><a href="basic-elements.html#filteredvar"><i class="fa fa-check"></i><b>2.1.1</b> <code>FilteredVar</code></a></li>
+<li class="chapter" data-level="2.1.2" data-path="basic-elements.html"><a href="basic-elements.html#arithmeticvar"><i class="fa fa-check"></i><b>2.1.2</b> <code>ArithmeticVar</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="basic-elements.html"><a href="basic-elements.html#cuts"><i class="fa fa-check"></i><b>2.2</b> <code>Cuts</code></a></li>
+<li class="chapter" data-level="2.3" data-path="basic-elements.html"><a href="basic-elements.html#filtering"><i class="fa fa-check"></i><b>2.3</b> Filtering</a></li>
+<li class="chapter" data-level="2.4" data-path="basic-elements.html"><a href="basic-elements.html#indexing"><i class="fa fa-check"></i><b>2.4</b> Indexing</a></li>
+<li class="chapter" data-level="2.5" data-path="basic-elements.html"><a href="basic-elements.html#grouping"><i class="fa fa-check"></i><b>2.5</b> Grouping</a></li>
+<li class="chapter" data-level="2.6" data-path="basic-elements.html"><a href="basic-elements.html#other-things-that-are-interesting"><i class="fa fa-check"></i><b>2.6</b> Other things that are interesting</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">PandAna 3 Design</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="basic-elements" class="section level1" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Basic elements</h1>
+<p>In PandAna, the basic calculational elements are <code>Cuts</code> and <code>Vars</code>.
+A <code>Var</code> represents <em>data</em>; a <code>Cut</code> represents selections done on the data.</p>
+<div id="vars" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> <code>Vars</code></h2>
+<p>The central feature of an “analysis”, as we represent it, is the <em>evaluation</em> of one or more <code>Vars</code>.
+A <code>Var</code> represents data that are either read directly from an input file or calculated by the analysis program, typically from other data read from the input file.
+From these <code>Vars</code> we can make histograms, scatterplots, statistical summaries, <em>etc</em>.
+A <code>Var</code> evaluates to a <em>table</em>, in our implementation a <code>pandas.DataFrame</code> (henceforth, just <code>DataFrame</code>).
+The evaluation of a <code>Var</code> requires the specification of a file to be used as the source of data for that <code>Var</code>.</p>
+<p>We have identified several types of <code>Vars</code>.</p>
+<ol>
+<li><code>SimpleVar</code>: A <code>SimpleVar</code> is responsible only for reading data from a file.
+It performs no operations on those data.</li>
+<li><code>MutatedVar</code>: A <code>MutatedVar</code> is based upon some other <code>Var</code>, and also contains a function that transforms the <code>DataFrame</code> to which that <code>Var</code> evaluate in order to yield the value of the <code>MutatedVar</code>.</li>
+<li><code>GroupedVar</code>:</li>
+</ol>
+<div id="filteredvar" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> <code>FilteredVar</code></h3>
+</div>
+<div id="arithmeticvar" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> <code>ArithmeticVar</code></h3>
+</div>
+</div>
+<div id="cuts" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> <code>Cuts</code></h2>
+<p>A <code>Cut</code>:</p>
+<ul>
+<li><em>evaluates</em> to an array of booleans (either an <code>np.ndarray</code> or a <code>DataFrame</code> with one boolean column).</li>
+<li>gets <em>applied</em> to <code>Vars</code> to select the rows that “pass the cut”.</li>
+<li>We have identified only a few types of <code>Cuts</code>.</li>
+</ul>
+</div>
+<div id="filtering" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Filtering</h2>
+</div>
+<div id="indexing" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Indexing</h2>
+</div>
+<div id="grouping" class="section level2" number="2.5">
+<h2><span class="header-section-number">2.5</span> Grouping</h2>
+</div>
+<div id="other-things-that-are-interesting" class="section level2" number="2.6">
+<h2><span class="header-section-number">2.6</span> Other things that are interesting</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="what-pandana-is-for-and-why-we-are-designing-pandana-3.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["pandana3-design.pdf", "pandana3-design.epub"],
+"search": {
+"engine": "lunr",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
