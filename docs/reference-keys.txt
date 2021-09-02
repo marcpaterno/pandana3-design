@@ -8,3 +8,14 @@ filtering
 indexing
 grouping
 other-things-that-are-interesting
+filteredvar-design
+prefer-to-fail-early
+current-design-candidate
+metadata-describing-the-objects-in-a-table
+random-questions-and-observations
+use-cases
+uc-1
+uc-2
+non-use-cases
+nuc-1
+nuc-2

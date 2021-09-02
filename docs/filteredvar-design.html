@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 FilteredVar design | PandAna 3 Design</title>
+  <meta name="description" content="The design of PandAna 3." />
+  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 FilteredVar design | PandAna 3 Design" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="http://seankross.com/bookdown-start/" />
+  
+  <meta property="og:description" content="The design of PandAna 3." />
+  <meta name="github-repo" content="marcpaterno/pandana-design" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 FilteredVar design | PandAna 3 Design" />
+  
+  <meta name="twitter:description" content="The design of PandAna 3." />
+  
+
+<meta name="author" content="Marc Paterno" />
+
+
+<meta name="date" content="2021-09-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="basic-elements.html"/>
+
+<script src="libs/header-attrs-2.10/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">PandAna 3 Design</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="what-pandana-is-for-and-why-we-are-designing-pandana-3.html"><a href="what-pandana-is-for-and-why-we-are-designing-pandana-3.html"><i class="fa fa-check"></i><b>1</b> What PandAna is for, and why we are designing PandAna 3</a></li>
+<li class="chapter" data-level="2" data-path="basic-elements.html"><a href="basic-elements.html"><i class="fa fa-check"></i><b>2</b> Basic elements</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="basic-elements.html"><a href="basic-elements.html#vars"><i class="fa fa-check"></i><b>2.1</b> <code>Vars</code></a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="basic-elements.html"><a href="basic-elements.html#filteredvar"><i class="fa fa-check"></i><b>2.1.1</b> <code>FilteredVar</code></a></li>
+<li class="chapter" data-level="2.1.2" data-path="basic-elements.html"><a href="basic-elements.html#arithmeticvar"><i class="fa fa-check"></i><b>2.1.2</b> <code>ArithmeticVar</code></a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="basic-elements.html"><a href="basic-elements.html#cuts"><i class="fa fa-check"></i><b>2.2</b> <code>Cuts</code></a></li>
+<li class="chapter" data-level="2.3" data-path="basic-elements.html"><a href="basic-elements.html#filtering"><i class="fa fa-check"></i><b>2.3</b> Filtering</a></li>
+<li class="chapter" data-level="2.4" data-path="basic-elements.html"><a href="basic-elements.html#indexing"><i class="fa fa-check"></i><b>2.4</b> Indexing</a></li>
+<li class="chapter" data-level="2.5" data-path="basic-elements.html"><a href="basic-elements.html#grouping"><i class="fa fa-check"></i><b>2.5</b> Grouping</a></li>
+<li class="chapter" data-level="2.6" data-path="basic-elements.html"><a href="basic-elements.html#other-things-that-are-interesting"><i class="fa fa-check"></i><b>2.6</b> Other things that are interesting</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="filteredvar-design.html"><a href="filteredvar-design.html"><i class="fa fa-check"></i><b>3</b> <code>FilteredVar</code> design</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="filteredvar-design.html"><a href="filteredvar-design.html#prefer-to-fail-early"><i class="fa fa-check"></i><b>3.1</b> Prefer to fail early</a></li>
+<li class="chapter" data-level="3.2" data-path="filteredvar-design.html"><a href="filteredvar-design.html#current-design-candidate"><i class="fa fa-check"></i><b>3.2</b> Current design candidate</a></li>
+<li class="chapter" data-level="3.3" data-path="filteredvar-design.html"><a href="filteredvar-design.html#metadata-describing-the-objects-in-a-table"><i class="fa fa-check"></i><b>3.3</b> Metadata describing the objects in a table</a></li>
+<li class="chapter" data-level="3.4" data-path="filteredvar-design.html"><a href="filteredvar-design.html#random-questions-and-observations"><i class="fa fa-check"></i><b>3.4</b> Random questions and observations</a></li>
+<li class="chapter" data-level="3.5" data-path="filteredvar-design.html"><a href="filteredvar-design.html#use-cases"><i class="fa fa-check"></i><b>3.5</b> Use cases</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="filteredvar-design.html"><a href="filteredvar-design.html#uc-1"><i class="fa fa-check"></i><b>3.5.1</b> UC 1</a></li>
+<li class="chapter" data-level="3.5.2" data-path="filteredvar-design.html"><a href="filteredvar-design.html#uc-2"><i class="fa fa-check"></i><b>3.5.2</b> UC 2</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="filteredvar-design.html"><a href="filteredvar-design.html#non-use-cases"><i class="fa fa-check"></i><b>3.6</b> Non-use cases</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="filteredvar-design.html"><a href="filteredvar-design.html#nuc-1"><i class="fa fa-check"></i><b>3.6.1</b> NUC 1</a></li>
+<li class="chapter" data-level="3.6.2" data-path="filteredvar-design.html"><a href="filteredvar-design.html#nuc-2"><i class="fa fa-check"></i><b>3.6.2</b> NUC 2</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">PandAna 3 Design</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="filteredvar-design" class="section level1" number="3">
+<h1><span class="header-section-number">Chapter 3</span> <code>FilteredVar</code> design</h1>
+<p>A <code>FilteredVar</code> represents data that has been subjected to some sort of filtering process (a cut).
+Each <code>FilteredVar</code> contains a <code>Cut</code> (which represents the filtering condition) and a <code>Var</code> (which represents the data which are to be filtered).
+The <code>Cut</code> contains its own <code>Var</code>, which contains the data which are used to evaluate the predicate that is part of the <code>Cut</code>.
+Evaluation of the <code>FilteredVar</code> proceeds by:</p>
+<ol style="list-style-type: decimal">
+<li>evaluation of the <code>Cut</code>, which yields a boolean <code>pd.Series</code> defining the rows of its <code>Var</code> which pass the selection criteria.</li>
+<li>evaluation of the <code>Var</code>, which yields a <code>pd.DataFrame</code>.</li>
+<li>application of the <code>pd.Series</code> to the <code>pd.DataFrame</code> to yield the final <code>pd.DataFrame</code>.</li>
+</ol>
+<p>Note that the <code>Var</code>s involved in this calculation can be any type of <code>Var</code>, nor just <code>SimpleVar</code>s.
+The major issue our design must resolve is: how do we make sure the <code>Var</code> and the <code>Cut</code> in the <code>FilteredVar</code> are compatible, meaning that it is meaningful to use the <code>pd.Series</code> yielded by evaluating the <code>Cut</code> to the <code>pd.DataFrame</code> yielded by evaluating the base <code>Var</code>?
+This is meaningful only when the series and the dataframe contain entries that correspond to the same object.
+For example, it is meaningful to make a cut based on a quality measure for electrons found by algorithm <em>A</em> and to apply that cut on kinematic quantities of electrons found by the same algorithm, even if the kinematic quantities and quality measures are found in different tables.
+It does not make sense to apply a cut created on a muon quality measure to a table of electrons, nor does it make sense to apply a cut on a quality measure for electrons found by algorithm <em>A</em> to the kinematic quantities of electrons found by algorithm <em>B</em>.
+Because the <code>Var</code>s involved in the <code>FilteredVar</code> may not be <code>SimpleVar</code>s, we must be able to extend the verification of consistency to work between any two types of <code>Var</code>s.</p>
+<div id="prefer-to-fail-early" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Prefer to fail early</h2>
+<p>It would be good to be able to sanity-check a <code>FilteredVar</code> without needing to refer to the data file.
+Since that does not seem possible, it it would be better to sanity-check a <code>FilteredVar</code> based only by reading file metadata rather than failing at dataframe-processing time after reading large data from the file.</p>
+<p>There may be some incompatibilities that can only be detected after we have read data from the file, if at all.
+Not all errors can be diagnosed.</p>
+</div>
+<div id="current-design-candidate" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Current design candidate</h2>
+<p>We are relying upon metadata stored in each <em>Group</em> in the file. The metadata are stored in an <em>Attribute</em> named <code>index_cols</code>; this is a list of the names of the <em>Datasets</em> in the <em>Group</em> which are index columns, in the correct order to define a unique multidimensional index (in the sense of Pandas).
+The intent is to use this index information to allow the determination of whether a <code>FilteredVar</code> is well-formed or not.
+Note that this design is not sufficient to assure that a <code>FilteredVar</code> is well-formed.
+In an example data file only slightly different in design from ours, if the <em>muons</em> and <em>electrons</em> tables both had as their index columns <em>evtnum</em> and <em>idx</em>, then we could not determine that they were incompatible.
+If the <em>electrons</em> and <em>electrons_qual</em> tables did not have the same index columns, then we could not tell that they are compatible.</p>
+<p>Question: Are the NOvA tables all labeled in a fashion compatible with this use?</p>
+</div>
+<div id="metadata-describing-the-objects-in-a-table" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Metadata describing the objects in a table</h2>
+<p>If each table were to contain metadata labeling the objects in the table, we could use that metadata to determine whether two tables were appropriate for combination.
+This was rejected because it is unclear how to organize these metadata to allow scaling; if the <code>Vars</code> involved in the process are not <code>SimpleVar</code>s, how do we calculate the appropriate metadata?</p>
+<p>Instead, the metadata we have available for each <em>Group</em> is the (ordered) list of names of index columns for that <em>Group</em>.</p>
+</div>
+<div id="random-questions-and-observations" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Random questions and observations</h2>
+<p>We need to know what columns need to be read to be used for indexing.
+We do not want to require that user to specify the columns.
+(Data columns to be read are already specified by the user.)</p>
+<p>We do not want to read any more columns than are necessary.</p>
+<p>Do we need to distinguish between <em>index columns</em> and <em>data columns</em> inside of <code>Var</code>s?
+This now seems necessary.</p>
+<p>The types <code>Index</code> and <code>Grouping</code>, and their subtypes, do not have a clear meanings and are possibly redundant.</p>
+</div>
+<div id="use-cases" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Use cases</h2>
+<p>In this section of the document, we list some use cases that illustrate what kinds of things a <code>FilteredVar</code> should be able to do.
+In the following section, we list some cases of things that do not make sense, and so that we would like <code>FilteredVar</code> to diagnose as wrong, if it is possible to do so.
+Each case comes with a textual description (generally brief), and a table showing for the <code>Var</code> and <code>Cut</code> data member of the <code>FilteredVar</code>, and d an example of the list of index columns that <code>Var</code> has.
+The names of the columns are intentionally chosen to be very abstract.
+Note in real experiments’ data, the names will not be things like <em>a</em> and <em>b</em>; they will be things like <em>eventnum</em> and <em>electron_idx</em>.
+The last item on each line is a text description of what is represented by the <code>Var</code> or <code>Cut</code>.</p>
+<div id="uc-1" class="section level3" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> UC 1</h3>
+<p>We want electron <em>pt</em> and <em>phi</em> for all electrons in events with <em>met</em> &gt; 10.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>index columns</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>var</td>
+<td>a b</td>
+<td>electrons [pt, phi]</td>
+</tr>
+<tr class="even">
+<td>cut</td>
+<td>a</td>
+<td>events [met &gt; 10]</td>
+</tr>
+</tbody>
+</table>
+<p>Only the index column <em>a</em> must be read to evaluate this <code>Var</code>.</p>
+<div class="figure">
+<img src="diagrams/fv-uc-01.png" style="width:50.0%" alt="" />
+<p class="caption"><code>FilteredVar</code> for UC 1</p>
+</div>
+</div>
+<div id="uc-2" class="section level3" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> UC 2</h3>
+<p>In this case, the <em>var</em> inside the <code>FilteredVar</code> is <em>itself</em> a <code>FilteredVar</code>.</p>
+<p>We want electron quality information for electrons with <em>pt</em> &gt; 15 in events with <em>met</em> &gt; 10.</p>
+<p>Case with var being a FilteredVar: var is electron pt, phi for electrons in events with met &gt;10; we want electron quality for such electrons with pt &gt; 15.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>index columns</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>v1</td>
+<td>a</td>
+<td>events met</td>
+</tr>
+<tr class="even">
+<td>c1</td>
+<td>a</td>
+<td>events met &gt; 10</td>
+</tr>
+<tr class="odd">
+<td>v2</td>
+<td>a b</td>
+<td>electrons pt</td>
+</tr>
+<tr class="even">
+<td>fv1</td>
+<td>a b</td>
+<td>electrons pt in interesting events</td>
+</tr>
+<tr class="odd">
+<td>var</td>
+<td>a b</td>
+<td>electron quality q1, q2</td>
+</tr>
+<tr class="even">
+<td>cut</td>
+<td>a b</td>
+<td>electrons pt &gt; 15 in interesting events</td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<img src="diagrams/fv-uc-02.png" style="width:50.0%" alt="" />
+<p class="caption"><code>FilteredVar</code> for UC 2</p>
+</div>
+<p>What index columns need to be read to do the evaluation?
+We need <em>a</em> in order to get the first cut to work.
+Because the <em>electrons</em> and <em>electrons_qual</em> tables have identical indexing, we do not actually need to read the <em>b</em> column to get the right alignment of rows; a simple index on the dataframe should suffice.
+We have a test in our system that verifies this behavior of Pandas.</p>
+</div>
+</div>
+<div id="non-use-cases" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> Non-use cases</h2>
+<p>Note that cases we do not want to support often have descriptions that are clearly incoherent.
+This is why we do not want to support them! The key is to make the code automatically detect the incoherence, when possible. People do make mistakes in code, and we want to catch as many of them as we can.</p>
+<div id="nuc-1" class="section level3" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> NUC 1</h3>
+<p>We want event <em>met</em> for electrons with quality <em>q1</em> &gt; 0.75.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>index columns</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>var</td>
+<td>a</td>
+<td>events met</td>
+</tr>
+<tr class="even">
+<td>cut</td>
+<td>a b</td>
+<td>electrons with quality q1 &gt; 0.75</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="nuc-2" class="section level3" number="3.6.2">
+<h3><span class="header-section-number">3.6.2</span> NUC 2</h3>
+<p>More to come!</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="basic-elements.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["pandana3-design.pdf", "pandana3-design.epub"],
+"search": {
+"engine": "lunr",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+# `FilteredVar` design
+
+A `FilteredVar` represents data that has been subjected to some sort of filtering process (a cut).
+Each `FilteredVar` contains a `Cut` (which represents the filtering condition) and a  `Var` (which represents the data which are to be filtered).
+The `Cut` contains its own `Var`, which contains the data which are used to evaluate the predicate that is part of the `Cut`.
+Evaluation of the `FilteredVar` proceeds by:
+
+1.	evaluation of the `Cut`, which yields a boolean `pd.Series` defining the rows of its `Var` which pass the selection criteria.
+2.	evaluation of the `Var`, which yields a `pd.DataFrame`.
+3.	application of the `pd.Series` to the `pd.DataFrame` to yield the final `pd.DataFrame`.
+
+Note that the `Var`s involved in this calculation can be any type of `Var`, nor just `SimpleVar`s.
+The major issue our design must resolve is: how do we make sure the `Var` and the `Cut` in the `FilteredVar` are compatible, meaning that it is meaningful to use the `pd.Series` yielded by evaluating the `Cut` to the `pd.DataFrame` yielded by evaluating the base `Var`?
+This is meaningful only when the series and the dataframe contain entries that correspond to the same object.
+For example, it is meaningful to make a cut based on a quality measure for electrons found by algorithm *A* and to apply that cut on kinematic quantities of electrons found by the same algorithm, even if the kinematic quantities and quality measures are found in different tables.
+It does not make sense to apply a cut created on a muon quality measure to a table of electrons, nor does it make sense to apply a cut on a quality measure for electrons found by algorithm *A* to the kinematic quantities of electrons found by algorithm *B*.
+Because the `Var`s involved in the `FilteredVar` may not be `SimpleVar`s, we must be able to extend the verification of consistency to work between any two types of `Var`s.
+
+## Prefer to fail early
+
+It would be good to be able to sanity-check a `FilteredVar` without needing to refer to the data file.
+Since that does not seem possible, it it would be better to sanity-check a `FilteredVar` based only by reading file metadata rather than failing at dataframe-processing time after reading large data from the file.
+
+There may be some incompatibilities that can only be detected after we have read data from the file, if at all.
+Not all errors can be diagnosed.
+
+## Current design candidate
+
+We are relying upon metadata stored in each *Group* in the file. The metadata are stored in an *Attribute* named `index_cols`; this is a list of the names of the *Datasets* in the *Group* which are index columns, in the correct order to define a unique multidimensional index (in the sense of Pandas).
+The intent is to use this index information to allow the determination of whether a `FilteredVar` is well-formed or not.
+Note that this design is not sufficient to assure that a `FilteredVar` is well-formed.
+In an example data file only slightly different in design from ours, if the *muons* and *electrons* tables both had as their index columns *evtnum* and *idx*, then we could not determine that they were incompatible.
+If the *electrons* and *electrons_qual* tables did not have the same index columns, then we could not tell that they are compatible.
+
+Question: Are the NOvA tables all labeled in a fashion compatible with this use?
+
+## Metadata describing the objects in a table
+
+If each table were to contain metadata labeling the objects in the table, we could use that metadata to determine whether two tables were appropriate for combination.
+This was rejected because it is unclear how to organize these metadata to allow scaling; if the `Vars` involved in the process are not `SimpleVar`s, how do we calculate the appropriate metadata?
+
+Instead, the metadata we have available for each *Group* is the (ordered) list of names of index columns for that *Group*.
+
+## Random questions and observations
+
+We need to know what columns need to be read to be used for indexing.
+We do not want to require that user to specify the columns.
+(Data columns to be read are already specified by the user.)
+
+We do not want to read any more columns than are necessary.
+
+Do we need to distinguish between *index columns* and *data columns* inside of `Var`s?
+This now seems necessary.
+
+The types `Index` and `Grouping`, and their subtypes, do not have a clear meanings and are possibly redundant.
+
+## Use cases
+
+In this section of the document, we list some use cases that illustrate what kinds of things a `FilteredVar` should be able to do.
+In the following section, we list some cases of things that do not make sense, and so that we would like `FilteredVar` to diagnose as wrong, if it is possible to do so.
+Each case comes with a textual description (generally brief), and a table showing for the `Var` and `Cut` data member of the `FilteredVar`, and d an example of the list of index columns that `Var` has.
+The names of the columns are intentionally chosen to be very abstract.
+Note in real experiments’ data, the names will not be things like *a* and *b*; they will be things like *eventnum* and *electron_idx*.
+The last item on each line is a text description of what is represented by the `Var` or `Cut`.
+
+### UC 1
+
+We want electron *pt* and *phi* for all electrons in events with *met* > 10.
+
+
+|     | index columns |   description         |
+|-----|---------------|-----------------------|
+| var | a b           | electrons [pt, phi]   |
+| cut | a             | events [met > 10]     |
+
+Only the index column *a* must be read to evaluate this `Var`.
+
+![`FilteredVar` for UC 1](diagrams/fv-uc-01.png){width=50%}
+
+### UC 2
+
+In this case, the *var* inside the `FilteredVar` is *itself* a `FilteredVar`.
+
+We want electron quality information for electrons with *pt* > 15 in events with *met* > 10.
+
+Case with var being a FilteredVar: var is electron pt, phi for electrons in events with met >10; we want electron quality for such electrons with pt > 15.  
+
+|      | index columns |   description                           |
+|------|---------------|-----------------------------------------|
+| v1   | a             | events met                              |
+| c1   | a             | events met > 10                         |
+| v2   | a  b          | electrons pt                            |
+| fv1  | a  b          | electrons pt in interesting events      |
+| var  | a  b          | electron quality q1, q2                 |
+| cut  | a  b          | electrons pt > 15 in interesting events |
+
+![`FilteredVar` for UC 2](diagrams/fv-uc-02.png){width=50%}
+
+What index columns need to be read to do the evaluation?
+We need *a* in order to get the first cut to work.
+Because the *electrons* and *electrons_qual* tables have identical indexing, we do not actually need to read the *b* column to get the right alignment of rows; a simple index on the dataframe should suffice.
+We have a test in our system that verifies this behavior of Pandas.
+
+
+## Non-use cases
+
+Note that cases we do not want to support often have descriptions that are clearly incoherent.
+This is why we do not want to support them! The key is to make the code automatically detect the incoherence, when possible. People do make mistakes in code, and we want to catch as many of them as we can.
+
+### NUC 1
+
+We want event *met* for electrons with quality *q1* >  0.75.
+
+|      | index columns |   description                           |
+|------|---------------|-----------------------------------------|
+| var  | a             | events met                              |
+| cut  | a  b          | electrons with quality q1 > 0.75        |
+
+### NUC 2
+
+More to come!

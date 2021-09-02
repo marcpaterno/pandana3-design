@@ -1,0 +1,29 @@
+@startuml
+skinparam dpi 300
+
+object "SimpleVar" as var {
+  table = "electrons"
+  columns = ["pt", "phi"]
+}
+
+object "SimpleCut" as cut {
+}
+
+object "SimpleVar" as met {
+  table =  "events"
+  columns = ["met"]
+}
+
+object "FilteredVar" as fv {
+}
+
+object "Callable" as pred {
+ lambda df : df["met"] > 10
+}
+
+cut *-- met : var
+cut *-- pred : pred
+fv *-- var : var
+fv *-- cut : cut
+
+@enduml
