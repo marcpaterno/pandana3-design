@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 FilteredVar design | PandAna 3 Design</title>
   <meta name="description" content="The design of PandAna 3." />
-  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 FilteredVar design | PandAna 3 Design" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Marc Paterno" />
 
 
-<meta name="date" content="2021-09-02" />
+<meta name="date" content="2021-09-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -35,6 +35,7 @@
 
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -42,7 +43,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
 
 
 
@@ -98,6 +98,7 @@
 <ul>
 <li class="chapter" data-level="3.5.1" data-path="filteredvar-design.html"><a href="filteredvar-design.html#uc-1"><i class="fa fa-check"></i><b>3.5.1</b> UC 1</a></li>
 <li class="chapter" data-level="3.5.2" data-path="filteredvar-design.html"><a href="filteredvar-design.html#uc-2"><i class="fa fa-check"></i><b>3.5.2</b> UC 2</a></li>
+<li class="chapter" data-level="3.5.3" data-path="filteredvar-design.html"><a href="filteredvar-design.html#uc-3"><i class="fa fa-check"></i><b>3.5.3</b> UC 3</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="filteredvar-design.html"><a href="filteredvar-design.html#non-use-cases"><i class="fa fa-check"></i><b>3.6</b> Non-use cases</a>
 <ul>
@@ -178,7 +179,8 @@ This now seems necessary.</p>
 <h2><span class="header-section-number">3.5</span> Use cases</h2>
 <p>In this section of the document, we list some use cases that illustrate what kinds of things a <code>FilteredVar</code> should be able to do.
 In the following section, we list some cases of things that do not make sense, and so that we would like <code>FilteredVar</code> to diagnose as wrong, if it is possible to do so.
-Each case comes with a textual description (generally brief), and a table showing for the <code>Var</code> and <code>Cut</code> data member of the <code>FilteredVar</code>, and d an example of the list of index columns that <code>Var</code> has.
+Each case comes with a textual description (generally brief), and a table showing for the <code>Var</code> and <code>Cut</code> data member of the <code>FilteredVar</code>, and d an example of the list of index columns that <code>Var</code> has access to.
+Note that <em>not all of these index columns need to be read</em>; part of what we are doing is finding a design that allows us to read the minimal amount of index information.
 The names of the columns are intentionally chosen to be very abstract.
 Note in real experiments’ data, the names will not be things like <em>a</em> and <em>b</em>; they will be things like <em>eventnum</em> and <em>electron_idx</em>.
 The last item on each line is a text description of what is represented by the <code>Var</code> or <code>Cut</code>.</p>
@@ -195,14 +197,14 @@ The last item on each line is a text description of what is represented by the <
 </thead>
 <tbody>
 <tr class="odd">
-<td>var</td>
-<td>a b</td>
-<td>electrons [pt, phi]</td>
-</tr>
-<tr class="even">
 <td>cut</td>
 <td>a</td>
 <td>events [met &gt; 10]</td>
+</tr>
+<tr class="even">
+<td>var</td>
+<td>a b</td>
+<td>electrons [pt, phi]</td>
 </tr>
 </tbody>
 </table>
@@ -216,7 +218,6 @@ The last item on each line is a text description of what is represented by the <
 <h3><span class="header-section-number">3.5.2</span> UC 2</h3>
 <p>In this case, the <em>var</em> inside the <code>FilteredVar</code> is <em>itself</em> a <code>FilteredVar</code>.</p>
 <p>We want electron quality information for electrons with <em>pt</em> &gt; 15 in events with <em>met</em> &gt; 10.</p>
-<p>Case with var being a FilteredVar: var is electron pt, phi for electrons in events with met &gt;10; we want electron quality for such electrons with pt &gt; 15.</p>
 <table>
 <thead>
 <tr class="header">
@@ -229,32 +230,32 @@ The last item on each line is a text description of what is represented by the <
 <tr class="odd">
 <td>v1</td>
 <td>a</td>
-<td>events met</td>
+<td>events [met]</td>
 </tr>
 <tr class="even">
 <td>c1</td>
 <td>a</td>
-<td>events met &gt; 10</td>
+<td>events [met &gt; 10]</td>
 </tr>
 <tr class="odd">
 <td>v2</td>
 <td>a b</td>
-<td>electrons pt</td>
+<td>electrons [pt]</td>
 </tr>
 <tr class="even">
 <td>fv1</td>
 <td>a b</td>
-<td>electrons pt in interesting events</td>
+<td>electrons [pt] in interesting events</td>
 </tr>
 <tr class="odd">
 <td>var</td>
 <td>a b</td>
-<td>electron quality q1, q2</td>
+<td>electrons_qual [q1, q2]</td>
 </tr>
 <tr class="even">
 <td>cut</td>
 <td>a b</td>
-<td>electrons pt &gt; 15 in interesting events</td>
+<td>electrons [pt &gt; 15] in interesting events</td>
 </tr>
 </tbody>
 </table>
@@ -266,6 +267,56 @@ The last item on each line is a text description of what is represented by the <
 We need <em>a</em> in order to get the first cut to work.
 Because the <em>electrons</em> and <em>electrons_qual</em> tables have identical indexing, we do not actually need to read the <em>b</em> column to get the right alignment of rows; a simple index on the dataframe should suffice.
 We have a test in our system that verifies this behavior of Pandas.</p>
+</div>
+<div id="uc-3" class="section level3" number="3.5.3">
+<h3><span class="header-section-number">3.5.3</span> UC 3</h3>
+<p>This case is similar to UC 2, with the difference that the index columns of the <em>var</em> in the <code>FilteredVar</code> are different than the index columns in its <em>cut</em>.</p>
+<p>We want electron hit energy information for hits in electrons, for those electrons with <em>pt</em> &gt; 15, in events with <em>met</em> &gt; 10.</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>index columns</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>v1</td>
+<td>a</td>
+<td>events [met]</td>
+</tr>
+<tr class="even">
+<td>c1</td>
+<td>a</td>
+<td>events ]met &gt; 10]</td>
+</tr>
+<tr class="odd">
+<td>v2</td>
+<td>a b</td>
+<td>electrons [pt]</td>
+</tr>
+<tr class="even">
+<td>fv1</td>
+<td>a b</td>
+<td>electrons [pt] in interesting events</td>
+</tr>
+<tr class="odd">
+<td>cut</td>
+<td>a b</td>
+<td>electrons [pt &gt; 15] in interesting events</td>
+</tr>
+<tr class="even">
+<td>var</td>
+<td>a b c</td>
+<td>electrons_hits [e]</td>
+</tr>
+</tbody>
+</table>
+<div class="figure">
+<img src="diagrams/fv-uc-03.png" style="width:50.0%" alt="" />
+<p class="caption"><code>FilteredVar</code> for UC 3</p>
+</div>
 </div>
 </div>
 <div id="non-use-cases" class="section level2" number="3.6">
@@ -285,14 +336,14 @@ This is why we do not want to support them! The key is to make the code automati
 </thead>
 <tbody>
 <tr class="odd">
-<td>var</td>
-<td>a</td>
-<td>events met</td>
-</tr>
-<tr class="even">
 <td>cut</td>
 <td>a b</td>
-<td>electrons with quality q1 &gt; 0.75</td>
+<td>electrons_qual [q1 &gt; 0.75]</td>
+</tr>
+<tr class="even">
+<td>var</td>
+<td>a</td>
+<td>events [met]</td>
 </tr>
 </tbody>
 </table>
@@ -314,7 +365,6 @@ This is why we do not want to support them! The key is to make the code automati
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -355,7 +405,7 @@ gitbook.start({
 },
 "download": ["pandana3-design.pdf", "pandana3-design.epub"],
 "search": {
-"engine": "lunr",
+"engine": "fuse",
 "options": null
 },
 "toc": {

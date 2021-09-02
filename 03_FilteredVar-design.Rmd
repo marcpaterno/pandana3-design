@@ -58,7 +58,8 @@ The types `Index` and `Grouping`, and their subtypes, do not have a clear meanin
 
 In this section of the document, we list some use cases that illustrate what kinds of things a `FilteredVar` should be able to do.
 In the following section, we list some cases of things that do not make sense, and so that we would like `FilteredVar` to diagnose as wrong, if it is possible to do so.
-Each case comes with a textual description (generally brief), and a table showing for the `Var` and `Cut` data member of the `FilteredVar`, and d an example of the list of index columns that `Var` has.
+Each case comes with a textual description (generally brief), and a table showing for the `Var` and `Cut` data member of the `FilteredVar`, and d an example of the list of index columns that `Var` has access to.
+Note that *not all of these index columns need to be read*; part of what we are doing is finding a design that allows us to read the minimal amount of index information.
 The names of the columns are intentionally chosen to be very abstract.
 Note in real experiments’ data, the names will not be things like *a* and *b*; they will be things like *eventnum* and *electron_idx*.
 The last item on each line is a text description of what is represented by the `Var` or `Cut`.
@@ -70,8 +71,9 @@ We want electron *pt* and *phi* for all electrons in events with *met* > 10.
 
 |     | index columns |   description         |
 |-----|---------------|-----------------------|
-| var | a b           | electrons [pt, phi]   |
 | cut | a             | events [met > 10]     |
+| var | a b           | electrons [pt, phi]   |
+
 
 Only the index column *a* must be read to evaluate this `Var`.
 
@@ -83,16 +85,14 @@ In this case, the *var* inside the `FilteredVar` is *itself* a `FilteredVar`.
 
 We want electron quality information for electrons with *pt* > 15 in events with *met* > 10.
 
-Case with var being a FilteredVar: var is electron pt, phi for electrons in events with met >10; we want electron quality for such electrons with pt > 15.  
-
-|      | index columns |   description                           |
-|------|---------------|-----------------------------------------|
-| v1   | a             | events met                              |
-| c1   | a             | events met > 10                         |
-| v2   | a  b          | electrons pt                            |
-| fv1  | a  b          | electrons pt in interesting events      |
-| var  | a  b          | electron quality q1, q2                 |
-| cut  | a  b          | electrons pt > 15 in interesting events |
+|      | index columns |   description                             |
+|------|---------------|-------------------------------------------|
+| v1   | a             | events [met]                              |
+| c1   | a             | events [met > 10]                         |
+| v2   | a  b          | electrons [pt]                            |
+| fv1  | a  b          | electrons [pt] in interesting events      |
+| var  | a  b          | electrons_qual [q1, q2]                   |
+| cut  | a  b          | electrons [pt > 15] in interesting events |
 
 ![`FilteredVar` for UC 2](diagrams/fv-uc-02.png){width=50%}
 
@@ -100,6 +100,23 @@ What index columns need to be read to do the evaluation?
 We need *a* in order to get the first cut to work.
 Because the *electrons* and *electrons_qual* tables have identical indexing, we do not actually need to read the *b* column to get the right alignment of rows; a simple index on the dataframe should suffice.
 We have a test in our system that verifies this behavior of Pandas.
+
+### UC 3
+
+This case is similar to UC 2, with the difference that the index columns of the *var* in the `FilteredVar` are different than the index columns in its *cut*.
+
+We want electron hit energy information for hits in electrons, for those electrons with *pt* > 15, in events with *met* > 10.
+
+|      | index columns |   description                             |
+|------|---------------|-------------------------------------------|
+| v1   | a             | events [met]                              |
+| c1   | a             | events ]met > 10]                         |
+| v2   | a  b          | electrons [pt]                            |
+| fv1  | a  b          | electrons [pt] in interesting events      |
+| cut  | a  b          | electrons [pt > 15] in interesting events |
+| var  | a  b c        | electrons_hits [e]                        |
+
+![`FilteredVar` for UC 3](diagrams/fv-uc-03.png){width=50%}
 
 
 ## Non-use cases
@@ -113,8 +130,9 @@ We want event *met* for electrons with quality *q1* >  0.75.
 
 |      | index columns |   description                           |
 |------|---------------|-----------------------------------------|
-| var  | a             | events met                              |
-| cut  | a  b          | electrons with quality q1 > 0.75        |
+| cut  | a  b          | electrons_qual [q1 > 0.75]              |
+| var  | a             | events [met]                            |
+
 
 ### NUC 2
 

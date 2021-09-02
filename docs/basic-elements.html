@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Basic elements | PandAna 3 Design</title>
   <meta name="description" content="The design of PandAna 3." />
-  <meta name="generator" content="bookdown 0.23 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Basic elements | PandAna 3 Design" />
   <meta property="og:type" content="book" />
@@ -24,7 +24,7 @@
 <meta name="author" content="Marc Paterno" />
 
 
-<meta name="date" content="2021-09-02" />
+<meta name="date" content="2021-09-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -35,6 +35,7 @@
 <link rel="next" href="filteredvar-design.html"/>
 <script src="libs/header-attrs-2.10/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -42,7 +43,6 @@
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
 
 
 
@@ -98,6 +98,7 @@
 <ul>
 <li class="chapter" data-level="3.5.1" data-path="filteredvar-design.html"><a href="filteredvar-design.html#uc-1"><i class="fa fa-check"></i><b>3.5.1</b> UC 1</a></li>
 <li class="chapter" data-level="3.5.2" data-path="filteredvar-design.html"><a href="filteredvar-design.html#uc-2"><i class="fa fa-check"></i><b>3.5.2</b> UC 2</a></li>
+<li class="chapter" data-level="3.5.3" data-path="filteredvar-design.html"><a href="filteredvar-design.html#uc-3"><i class="fa fa-check"></i><b>3.5.3</b> UC 3</a></li>
 </ul></li>
 <li class="chapter" data-level="3.6" data-path="filteredvar-design.html"><a href="filteredvar-design.html#non-use-cases"><i class="fa fa-check"></i><b>3.6</b> Non-use cases</a>
 <ul>
@@ -183,7 +184,6 @@ It performs no operations on those data.</li>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -224,7 +224,7 @@ gitbook.start({
 },
 "download": ["pandana3-design.pdf", "pandana3-design.epub"],
 "search": {
-"engine": "lunr",
+"engine": "fuse",
 "options": null
 },
 "toc": {

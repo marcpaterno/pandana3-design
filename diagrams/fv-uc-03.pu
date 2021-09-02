@@ -27,9 +27,9 @@ object "FilteredVar" as fv2 {
 object "cut: SimpleCut" as cut2 {
 }
 
-object "var: SimpleVar" as qual {
-  table = "electrons_qual"
-  columns = ["q1", "q2"]
+object "var: SimpleVar" as hits {
+  table = "electrons_hits"
+  columns = ["e"]
 }
 
 object "Callable" as pred2 {
@@ -41,7 +41,7 @@ cut *-- pred
 fv1 *-- var
 fv1 *-- cut
 
-fv2 *-- qual
+fv2 *-- hits
 fv2 *-- cut2
 
 cut2 *-- fv1
