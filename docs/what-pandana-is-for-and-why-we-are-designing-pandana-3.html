@@ -24,7 +24,7 @@
 <meta name="author" content="Marc Paterno" />
 
 
-<meta name="date" content="2021-09-03" />
+<meta name="date" content="2021-09-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -140,7 +140,7 @@ However, the reading performance becomes a limiting factor for relatively small 
 This is because good performance is obtained from the HDF5 reading only when the size of each dataset read by each rank is large.</p>
 <p>The goal of PandAna 3 is to further the abilities of PandAna 2, to include automated MPI parallelism and high-performance IO (especially reading) of large data samples.
 Furthermore, we are looking to redesign the internals of PandAna to allow the automatic optimization of workflows by scheduling both reading of data and evaluation of calculations in the most efficient fashion.</p>
-<p>Our plans for re-design include introducing something like an <em>abstract syntax tree</em> (AST) to describe the “calcluation” done in an analysis.
+<p>Our plans for re-design include introducing something like an <em>abstract syntax tree</em> (AST) to describe the “calculation” done in an analysis.
 The calculation in question is the creation of a table of data (in HEP, often called an <em>ntuple</em>) to be used tasks such as the creation of histograms or other plots, the calculation of summary statistics, and for fitting.
 We are introducing an AST to provide the opportunity to apply optimizations of the calculation before evaluation of the calculated result; the formal separation of the <em>creation</em> of the AST from its <em>evaluation</em>.</p>
 

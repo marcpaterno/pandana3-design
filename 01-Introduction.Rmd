@@ -21,6 +21,6 @@ This is because good performance is obtained from the HDF5 reading only when the
 The goal of PandAna 3 is to further the abilities of PandAna 2, to include automated MPI parallelism and high-performance IO (especially reading) of large data samples.
 Furthermore, we are looking to redesign the internals of PandAna to allow the automatic optimization of workflows by scheduling both reading of data and evaluation of calculations in the most efficient fashion.
 
-Our plans for re-design include introducing something like an *abstract syntax tree* (AST) to describe the "calcluation" done in an analysis.
+Our plans for re-design include introducing something like an *abstract syntax tree* (AST) to describe the "calculation" done in an analysis.
 The calculation in question is the creation of a table of data (in HEP, often called an *ntuple*) to be used tasks such as the creation of histograms or other plots, the calculation of summary statistics, and for fitting.
 We are introducing an AST to provide the opportunity to apply optimizations of the calculation before evaluation of the calculated result; the formal separation of the *creation* of the AST from its *evaluation*.

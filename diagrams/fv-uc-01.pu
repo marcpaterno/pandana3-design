@@ -4,17 +4,21 @@ skinparam dpi 300
 object "var: SimpleVar" as var {
   table = "electrons"
   columns = ["pt", "phi"]
+  index_columns = ["a", "b"]
 }
 
 object "cut: SimpleCut" as cut {
+  index_columns =  ["a"]
 }
 
 object "SimpleVar" as met {
   table =  "events"
   columns = ["met"]
+  index_columns = ["a"]
 }
 
 object "FilteredVar" as fv {
+  index_columns = ["a", "b"]
 }
 
 object "Callable" as pred {

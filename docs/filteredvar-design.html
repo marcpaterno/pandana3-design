@@ -24,7 +24,7 @@
 <meta name="author" content="Marc Paterno" />
 
 
-<meta name="date" content="2021-09-03" />
+<meta name="date" content="2021-09-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -184,6 +184,11 @@ Note that <em>not all of these index columns need to be read</em>; part of what 
 The names of the columns are intentionally chosen to be very abstract.
 Note in real experiments’ data, the names will not be things like <em>a</em> and <em>b</em>; they will be things like <em>eventnum</em> and <em>electron_idx</em>.
 The last item on each line is a text description of what is represented by the <code>Var</code> or <code>Cut</code>.</p>
+<p>The diagrams below are <em>UML object diagrams</em>. Each box shows a specific object.
+The top part of the box shows either the object name and its type, or just its type
+The bottom part of the box shows some of data owned by the object, specifically basic types.
+The lines also show data ownership of more complex types.
+Note that in these diagrams the <em>index_columns</em> are those that are available to be read, not those that must be read.</p>
 <div id="uc-1" class="section level3" number="3.5.1">
 <h3><span class="header-section-number">3.5.1</span> UC 1</h3>
 <p>We want electron <em>pt</em> and <em>phi</em> for all electrons in events with <em>met</em> &gt; 10.</p>
@@ -210,7 +215,7 @@ The last item on each line is a text description of what is represented by the <
 </table>
 <p>Only the index column <em>a</em> must be read to evaluate this <code>Var</code>.</p>
 <div class="figure">
-<img src="diagrams/fv-uc-01.png" style="width:50.0%" alt="" />
+<img src="diagrams/fv-uc-01.png" style="width:70.0%" alt="" />
 <p class="caption"><code>FilteredVar</code> for UC 1</p>
 </div>
 </div>
@@ -260,7 +265,7 @@ The last item on each line is a text description of what is represented by the <
 </tbody>
 </table>
 <div class="figure">
-<img src="diagrams/fv-uc-02.png" style="width:50.0%" alt="" />
+<img src="diagrams/fv-uc-02.png" style="width:70.0%" alt="" />
 <p class="caption"><code>FilteredVar</code> for UC 2</p>
 </div>
 <p>What index columns need to be read to do the evaluation?
@@ -309,14 +314,15 @@ We have a test in our system that verifies this behavior of Pandas.</p>
 <tr class="even">
 <td>var</td>
 <td>a b c</td>
-<td>electrons_hits [e]</td>
+<td>electrons_hits [energy]</td>
 </tr>
 </tbody>
 </table>
 <div class="figure">
-<img src="diagrams/fv-uc-03.png" style="width:50.0%" alt="" />
+<img src="diagrams/fv-uc-03.png" style="width:70.0%" alt="" />
 <p class="caption"><code>FilteredVar</code> for UC 3</p>
 </div>
+<p>In this case, we need to read index columns <em>a</em> and <em>b</em>, so that the rows in the dataframe from <em>var</em> can be correctly aligned with the elements in the series from <em>cut</em>.</p>
 </div>
 </div>
 <div id="non-use-cases" class="section level2" number="3.6">

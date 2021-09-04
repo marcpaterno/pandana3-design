@@ -64,6 +64,12 @@ The names of the columns are intentionally chosen to be very abstract.
 Note in real experiments’ data, the names will not be things like *a* and *b*; they will be things like *eventnum* and *electron_idx*.
 The last item on each line is a text description of what is represented by the `Var` or `Cut`.
 
+The diagrams below are *UML object diagrams*. Each box shows a specific object.
+The top part of the box shows either the object name and its type, or just its type
+The bottom part of the box shows some of data owned by the object, specifically basic types.
+The lines also show data ownership of more complex types.
+Note that in these diagrams the *index_columns* are those that are available to be read, not those that must be read.
+
 ### UC 1
 
 We want electron *pt* and *phi* for all electrons in events with *met* > 10.
@@ -77,7 +83,7 @@ We want electron *pt* and *phi* for all electrons in events with *met* > 10.
 
 Only the index column *a* must be read to evaluate this `Var`.
 
-![`FilteredVar` for UC 1](diagrams/fv-uc-01.png){width=50%}
+![`FilteredVar` for UC 1](diagrams/fv-uc-01.png){width=70%}
 
 ### UC 2
 
@@ -94,7 +100,7 @@ We want electron quality information for electrons with *pt* > 15 in events with
 | var  | a  b          | electrons_qual [q1, q2]                   |
 | cut  | a  b          | electrons [pt > 15] in interesting events |
 
-![`FilteredVar` for UC 2](diagrams/fv-uc-02.png){width=50%}
+![`FilteredVar` for UC 2](diagrams/fv-uc-02.png){width=70%}
 
 What index columns need to be read to do the evaluation?
 We need *a* in order to get the first cut to work.
@@ -114,9 +120,11 @@ We want electron hit energy information for hits in electrons, for those electro
 | v2   | a  b          | electrons [pt]                            |
 | fv1  | a  b          | electrons [pt] in interesting events      |
 | cut  | a  b          | electrons [pt > 15] in interesting events |
-| var  | a  b c        | electrons_hits [e]                        |
+| var  | a  b c        | electrons_hits [energy]                   |
 
-![`FilteredVar` for UC 3](diagrams/fv-uc-03.png){width=50%}
+![`FilteredVar` for UC 3](diagrams/fv-uc-03.png){width=70%}
+
+In this case, we need to read index columns *a* and *b*, so that the rows in the dataframe from *var* can be correctly aligned with the elements in the series from *cut*.
 
 
 ## Non-use cases
