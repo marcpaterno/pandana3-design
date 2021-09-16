@@ -3,6 +3,11 @@
 In PandAna, the basic calculational elements are `Cuts` and `Vars`.
 A `Var` represents *data*; a `Cut` represents selections done on the data.
 
+`Var`s and `Cut`s are often built from component `Var`s and `Cut`s.
+It is important to remember that Python generally uses *reference* semantics for objects.
+It is common for functions that manipulate the state of a *container* `Var` or `Cut` to modify the state of its components.
+As a result, a user who retains references to those components can see that they have changed.
+
 ## `Vars`
 
 The central feature of an "analysis", as we represent it, is the *evaluation* of one or more `Vars`.
