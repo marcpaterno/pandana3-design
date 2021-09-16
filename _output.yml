@@ -1,4 +1,4 @@
-bookdown::gitbook:
+bookdown::bs4_book:
   css: style.css
   split_by: chapter
   config:
