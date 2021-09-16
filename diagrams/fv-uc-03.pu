@@ -4,21 +4,21 @@ skinparam dpi 300
 object "v2: SimpleVar" as var {
   table = "electrons"
   columns = ["pt"]
-  index_columns = ["a", "b"]
+  index columns available = ["a", "b"]
 }
 
 object "c1 : SimpleCut" as cut {
-  index_columns = ["a"]
+  index columns available = ["a"]
 }
 
 object "v1: SimpleVar" as met {
   table =  "events"
   columns = ["met"]
-  index_columns = ["a"]
+  index columns available = ["a"]
 }
 
 object "fv1: FilteredVar" as fv1 {
-  index_columns = ["a", "b"]
+  index columns available = ["a", "b"]
 }
 
 object "Callable" as pred {
@@ -26,17 +26,17 @@ object "Callable" as pred {
 }
 
 object "FilteredVar" as fv2 {
-  index_columns = ["a", "b", "c"]
+  index columns available = ["a", "b", "c"]
 }
 
 object "cut: SimpleCut" as cut2 {
-  index_columns = ["a", "b"]
+  index columns available = ["a", "b"]
 }
 
 object "var: SimpleVar" as hits {
   table = "electrons_hits"
   columns = ["energy"]
-  index_columns = ["a", "b", "c"]
+  index columns available = ["a", "b", "c"]
 }
 
 object "Callable" as pred2 {
