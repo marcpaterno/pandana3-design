@@ -1,133 +1,60 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 1 What PandAna is for, and why we are designing PandAna 3 | PandAna 3 Design</title>
-  <meta name="description" content="The design of PandAna 3." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="Chapter 1 What PandAna is for, and why we are designing PandAna 3 | PandAna 3 Design" />
-  <meta property="og:type" content="book" />
-  <meta property="og:url" content="http://seankross.com/bookdown-start/" />
-  
-  <meta property="og:description" content="The design of PandAna 3." />
-  <meta name="github-repo" content="marcpaterno/pandana-design" />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 1 What PandAna is for, and why we are designing PandAna 3 | PandAna 3 Design" />
-  
-  <meta name="twitter:description" content="The design of PandAna 3." />
-  
-
-<meta name="author" content="Marc Paterno" />
-
-
-<meta name="date" content="2021-09-04" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="index.html"/>
-<link rel="next" href="basic-elements.html"/>
-<script src="libs/header-attrs-2.10/header-attrs.js"></script>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-
-
-
-
-<link rel="stylesheet" href="style.css" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 1 What PandAna is for, and why we are designing PandAna 3 | PandAna 3 Design</title>
+<meta name="author" content="Marc Paterno">
+<meta name="description" content="Starting from PandAna 2, the project goals have been the development of an easy-to-use environment for fast and scalable analysis. We achieve ease-of-use by the use of Python and Python data...">
+<meta name="generator" content="bookdown 0.24 with bs4_book()">
+<meta property="og:title" content="Chapter 1 What PandAna is for, and why we are designing PandAna 3 | PandAna 3 Design">
+<meta property="og:type" content="book">
+<meta property="og:url" content="http://seankross.com/bookdown-start/what-pandana-is-for-and-why-we-are-designing-pandana-3.html">
+<meta property="og:description" content="Starting from PandAna 2, the project goals have been the development of an easy-to-use environment for fast and scalable analysis. We achieve ease-of-use by the use of Python and Python data...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 1 What PandAna is for, and why we are designing PandAna 3 | PandAna 3 Design">
+<meta name="twitter:description" content="Starting from PandAna 2, the project goals have been the development of an easy-to-use environment for fast and scalable analysis. We achieve ease-of-use by the use of Python and Python data...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/header-attrs-2.11/header-attrs.js"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.3.0/transition.js"></script><script src="libs/bs3compat-0.3.0/tabs.js"></script><script src="libs/bs3compat-0.3.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><link rel="stylesheet" href="style.css">
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li><a href="./">PandAna 3 Design</a></li>
-
-<li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="what-pandana-is-for-and-why-we-are-designing-pandana-3.html"><a href="what-pandana-is-for-and-why-we-are-designing-pandana-3.html"><i class="fa fa-check"></i><b>1</b> What PandAna is for, and why we are designing PandAna 3</a></li>
-<li class="chapter" data-level="2" data-path="basic-elements.html"><a href="basic-elements.html"><i class="fa fa-check"></i><b>2</b> Basic elements</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="basic-elements.html"><a href="basic-elements.html#vars"><i class="fa fa-check"></i><b>2.1</b> <code>Vars</code></a>
-<ul>
-<li class="chapter" data-level="2.1.1" data-path="basic-elements.html"><a href="basic-elements.html#filteredvar"><i class="fa fa-check"></i><b>2.1.1</b> <code>FilteredVar</code></a></li>
-<li class="chapter" data-level="2.1.2" data-path="basic-elements.html"><a href="basic-elements.html#arithmeticvar"><i class="fa fa-check"></i><b>2.1.2</b> <code>ArithmeticVar</code></a></li>
-</ul></li>
-<li class="chapter" data-level="2.2" data-path="basic-elements.html"><a href="basic-elements.html#cuts"><i class="fa fa-check"></i><b>2.2</b> <code>Cuts</code></a></li>
-<li class="chapter" data-level="2.3" data-path="basic-elements.html"><a href="basic-elements.html#filtering"><i class="fa fa-check"></i><b>2.3</b> Filtering</a></li>
-<li class="chapter" data-level="2.4" data-path="basic-elements.html"><a href="basic-elements.html#indexing"><i class="fa fa-check"></i><b>2.4</b> Indexing</a></li>
-<li class="chapter" data-level="2.5" data-path="basic-elements.html"><a href="basic-elements.html#grouping"><i class="fa fa-check"></i><b>2.5</b> Grouping</a></li>
-<li class="chapter" data-level="2.6" data-path="basic-elements.html"><a href="basic-elements.html#other-things-that-are-interesting"><i class="fa fa-check"></i><b>2.6</b> Other things that are interesting</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="filteredvar-design.html"><a href="filteredvar-design.html"><i class="fa fa-check"></i><b>3</b> <code>FilteredVar</code> design</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="filteredvar-design.html"><a href="filteredvar-design.html#prefer-to-fail-early"><i class="fa fa-check"></i><b>3.1</b> Prefer to fail early</a></li>
-<li class="chapter" data-level="3.2" data-path="filteredvar-design.html"><a href="filteredvar-design.html#current-design-candidate"><i class="fa fa-check"></i><b>3.2</b> Current design candidate</a></li>
-<li class="chapter" data-level="3.3" data-path="filteredvar-design.html"><a href="filteredvar-design.html#metadata-describing-the-objects-in-a-table"><i class="fa fa-check"></i><b>3.3</b> Metadata describing the objects in a table</a></li>
-<li class="chapter" data-level="3.4" data-path="filteredvar-design.html"><a href="filteredvar-design.html#random-questions-and-observations"><i class="fa fa-check"></i><b>3.4</b> Random questions and observations</a></li>
-<li class="chapter" data-level="3.5" data-path="filteredvar-design.html"><a href="filteredvar-design.html#use-cases"><i class="fa fa-check"></i><b>3.5</b> Use cases</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="filteredvar-design.html"><a href="filteredvar-design.html#uc-1"><i class="fa fa-check"></i><b>3.5.1</b> UC 1</a></li>
-<li class="chapter" data-level="3.5.2" data-path="filteredvar-design.html"><a href="filteredvar-design.html#uc-2"><i class="fa fa-check"></i><b>3.5.2</b> UC 2</a></li>
-<li class="chapter" data-level="3.5.3" data-path="filteredvar-design.html"><a href="filteredvar-design.html#uc-3"><i class="fa fa-check"></i><b>3.5.3</b> UC 3</a></li>
-</ul></li>
-<li class="chapter" data-level="3.6" data-path="filteredvar-design.html"><a href="filteredvar-design.html#non-use-cases"><i class="fa fa-check"></i><b>3.6</b> Non-use cases</a>
-<ul>
-<li class="chapter" data-level="3.6.1" data-path="filteredvar-design.html"><a href="filteredvar-design.html#nuc-1"><i class="fa fa-check"></i><b>3.6.1</b> NUC 1</a></li>
-<li class="chapter" data-level="3.6.2" data-path="filteredvar-design.html"><a href="filteredvar-design.html#nuc-2"><i class="fa fa-check"></i><b>3.6.2</b> NUC 2</a></li>
-</ul></li>
-</ul></li>
-<li class="divider"></li>
-<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">PandAna 3 Design</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">PandAna 3 Design</a>
-          </h1>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Preface</a></li>
+<li><a class="active" href="what-pandana-is-for-and-why-we-are-designing-pandana-3.html"><span class="header-section-number">1</span> What PandAna is for, and why we are designing PandAna 3</a></li>
+<li><a class="" href="basic-elements.html"><span class="header-section-number">2</span> Basic elements</a></li>
+<li><a class="" href="filteredvar-design.html"><span class="header-section-number">3</span> FilteredVar design</a></li>
+</ul>
+
+        <div class="book-extra">
+          
         </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="what-pandana-is-for-and-why-we-are-designing-pandana-3" class="section level1" number="1">
-<h1><span class="header-section-number">Chapter 1</span> What PandAna is for, and why we are designing PandAna 3</h1>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="what-pandana-is-for-and-why-we-are-designing-pandana-3" class="section level1" number="1">
+<h1>
+<span class="header-section-number">1</span> What PandAna is for, and why we are designing PandAna 3<a class="anchor" aria-label="anchor" href="#what-pandana-is-for-and-why-we-are-designing-pandana-3"><i class="fas fa-link"></i></a>
+</h1>
 <p>Starting from PandAna 2, the project goals have been the development of an easy-to-use environment for fast and scalable analysis.
 We achieve ease-of-use by the use of Python and Python data science tools (<code>numpy</code> and <code>pandas</code>).</p>
 <p>PandAna 2 has support for parallel processing of data using MPI.
@@ -145,66 +72,35 @@ The calculation in question is the creation of a table of data (in HEP, often ca
 We are introducing an AST to provide the opportunity to apply optimizations of the calculation before evaluation of the calculated result; the formal separation of the <em>creation</em> of the AST from its <em>evaluation</em>.</p>
 
 </div>
-            </section>
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html">Preface</a></div>
+<div class="next"><a href="basic-elements.html"><span class="header-section-number">2</span> Basic elements</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#what-pandana-is-for-and-why-we-are-designing-pandana-3"><span class="header-section-number">1</span> What PandAna is for, and why we are designing PandAna 3</a></li></ul>
 
-          </div>
-        </div>
-      </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="basic-elements.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>PandAna 3 Design</strong>" was written by Marc Paterno. It was last built on 2021-09-23.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["pandana3-design.pdf", "pandana3-design.epub"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
-});
-});
-</script>
 
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
 </body>
-
 </html>

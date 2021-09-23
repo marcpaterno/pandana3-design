@@ -6,7 +6,7 @@ PUML_TARGETS=pandana-tree.png \
 	nova-simple-cuts.png nova-compound-cuts.png \
 	nova-transform.png \
 	pandana-var-classes.png pandana-arithmetic-classes.png \
-	fv-uc-01.png fv-uc-02.png fv-uc-03.png
+	fv-uc-00.png fv-uc-01.png fv-uc-02.png fv-uc-03.png
 
 PUML_TARGETS+=pandana-tree.png \
 	nova-simple-vars.pdf nova-grouped-vars.pdf nova-other-vars.pdf \

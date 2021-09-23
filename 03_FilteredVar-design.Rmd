@@ -70,6 +70,18 @@ The bottom part of the box shows some of data owned by the object, specifically 
 The lines also show data ownership of more complex types.
 Note that in these diagrams the *index_columns* are those that are available to be read, not those that must be read.
 
+### UC 0
+
+We want electron *pt* and *eta* for all electrons with abs(eta) < 1.5.
+
+|     | index columns |   description              |
+|-----|---------------|----------------------------|
+| cut | a b           | electrons [abs(eta) < 1.5] |
+| var | a b           | electrons [pt, eta]        |
+
+No index columns need to be read to evalute this `Var`.
+
+
 ### UC 1
 
 We want electron *pt* and *phi* for all electrons in events with *met* > 10.

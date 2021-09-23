@@ -1,0 +1,27 @@
+@startuml
+skinparam dpi 300
+
+object "var: SimpleVar" as var {
+  table = "electrons"
+  columns = ["pt", "eta"]
+  index columns available = ["a", "b"]
+}
+
+object "cut: SimpleCut" as cut {
+  index columns available =  ["a", "b"]
+}
+
+object "FilteredVar" as fv {
+  index columns available = ["a", "b"]
+}
+
+object "Callable" as pred {
+ lambda df : np.abs(df["eta"]) < 1.5
+}
+
+cut *-- var
+cut *-- pred
+fv *-- var
+fv *-- cut
+
+@enduml
