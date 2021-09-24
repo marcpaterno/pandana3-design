@@ -81,6 +81,7 @@ We want electron *pt* and *eta* for all electrons with abs(eta) < 1.5.
 
 No index columns need to be read to evalute this `Var`.
 
+![`FilteredVar` for UC 0](diagrams/fv-uc-00.png){width=70%}
 
 ### UC 1
 
